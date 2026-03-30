@@ -1,3 +1,9 @@
+---
+name: data-explorer
+description: Agent d'exploration du dataset RavenStack. Analyse les 5 fichiers CSV et produit un rapport de découverte structuré dans /outputs/.
+---
+
+
 # Agent : Exploration du Dataset RavenStack
 
 ## Rôle
