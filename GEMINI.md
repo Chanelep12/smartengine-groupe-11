@@ -42,3 +42,19 @@ Sprint 2 - Traitement des données (30 mars 2026)
 - Scrum Master : Chanel
 - Product Owner : à définir
 - Développeurs IA : Marius, Morgane, Enzo
+- Sprint en cours
+Sprint 2 - Traitement des données (30 mars 2026)
+Objectifs Sprint 2
+
+Nettoyer les 5 fichiers CSV (valeurs manquantes, doublons, types, outliers)
+Construire la table analytique (data/processed/analytics.csv)
+Créer les features pour la modélisation (feature engineering)
+Rédiger le rapport de nettoyage (outputs/rapport-nettoyage.md)
+Ajouter la section 2 au dossier de conception
+
+Équipe - Groupe 11
+
+Product Owner : Chanel
+Scrum Master : Morgane
+Développeur IA : Marius
+Développeur IA : Enzo
