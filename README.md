@@ -32,7 +32,7 @@ smartengine-groupe-11/
 ```
 
 ## Backlog
-🔗 [Lien vers le backlog Sprint 1](#) ← à remplacer par ton lien Notion/Trello
+🔗 [Backlog Sprint 1 — Trello](https://trello.com/invite/b/69ca4324cef1c613da43eaab/ATTI84ab81071c736b7ceb95fc760536d328F50F6CB3/smartengine-groupe-11)
 
 ## Sprints
 | Sprint | Dates | Thème |
