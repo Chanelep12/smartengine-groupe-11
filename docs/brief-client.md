@@ -1,38 +1,69 @@
-# Brief client — Projet smartEngine
+# Brief Client — Projet smartEngine
 
-## Le client : RavenStack
+## 1. Qui est le client ?
 
-RavenStack est une entreprise qui commercialise un logiciel de gestion
-de projets en mode SaaS B2B (Software as a Service). Cela signifie que
-le logiciel est accessible via internet par abonnement, sans installation
-locale. Il s'adresse aux équipes techniques et propose trois niveaux
-d'offre : Starter, Growth et Enterprise.
+**RavenStack** est une entreprise SaaS B2B (Software as a Service Business-to-Business) qui commercialise une plateforme de gestion de projets destinée aux équipes tech. Elle propose trois niveaux d'abonnement :
 
-## Le problème
+- **Starter** : pour les petites équipes
+- **Growth** : pour les équipes en croissance
+- **Enterprise** : pour les grandes organisations
 
-Chaque mois, une partie des clients de RavenStack résilie son abonnement.
-C'est ce qu'on appelle le churn. Chaque résiliation entraîne une perte de
-MRR (Monthly Recurring Revenue), c'est-à-dire le chiffre d'affaires
-mensuel prévisible. Sans outil de prédiction, ces départs sont difficiles
-à anticiper et les équipes Customer Success ne peuvent pas agir à temps.
+Son modèle économique repose entièrement sur des abonnements récurrents (MRR — Monthly Recurring Revenue), ce qui signifie que chaque client perdu représente une perte directe et prévisible de revenus.
 
-## Ce que nous allons construire
+---
 
-Nous développons smartEngine, un système de prédiction de churn qui
-permet à RavenStack d'identifier en avance les clients susceptibles de
-résilier. Le système repose sur l'analyse des données clients existantes
-(utilisation du produit, historique d'abonnement, tickets support) et
-produit un score de risque par compte.
+## 2. Quel est son problème ?
 
-Ce score sera accessible via un dashboard interactif destiné aux équipes
-Customer Success, avec des alertes automatiques pour les comptes à risque
-élevé.
+RavenStack perd chaque mois une partie de ses clients : c'est ce qu'on appelle le **churn** (ou taux d'attrition). Chaque résiliation d'abonnement réduit le MRR et génère un manque à gagner difficile à anticiper sans outil de prédiction.
 
-## Critères de succès
+Aujourd'hui, les équipes **Customer Success** (les collaborateurs chargés de la relation client après la vente) ne savent pas à l'avance quels clients sont sur le point de résilier. Elles agissent en réaction, trop tard, plutôt qu'en prévention.
 
-1. Le modèle de prédiction atteint un taux de précision d'au moins 75 %
-   sur les données de test.
-2. Le dashboard permet d'identifier en moins de 2 minutes les comptes
-   les plus à risque sur le mois en cours.
-3. Les alertes automatiques sont envoyées dans les 24 heures suivant la
-   détection d'un compte à risque élevé.
+Le problème est donc double :
+1. **Pas de visibilité anticipée** sur les clients à risque
+2. **Pas de système d'alerte** permettant d'intervenir au bon moment
+
+---
+
+## 3. Ce que nous allons construire
+
+Nous développons **smartEngine**, un système intelligent de prédiction du churn composé de trois briques :
+
+1. **Un modèle de scoring prédictif** : à partir des données comportementales des clients (utilisation des fonctionnalités, tickets de support, historique d'abonnement), le modèle calcule pour chaque compte une probabilité de résiliation.
+
+2. **Un dashboard interactif** (construit avec Streamlit) : accessible aux équipes Customer Success, il affiche en temps réel les comptes classés par niveau de risque (faible, moyen, élevé).
+
+3. **Un système d'alertes automatisées** (via n8n) : lorsqu'un compte dépasse un seuil de risque défini, une alerte est envoyée automatiquement à l'équipe concernée.
+
+---
+
+## 4. Données disponibles
+
+RavenStack met à notre disposition un dataset synthétique de 5 fichiers CSV :
+
+| Fichier | Contenu | Volume |
+|---|---|---|
+| accounts.csv | Profil des comptes clients | ~5 000 lignes |
+| subscriptions.csv | Historique des abonnements | ~5 000 lignes |
+| feature_usage.csv | Utilisation des fonctionnalités | ~60 000 lignes |
+| support_tickets.csv | Tickets de support | ~15 000 lignes |
+| churn_events.csv | Résiliations constatées | ~1 200 lignes |
+
+---
+
+## 5. Critères de succès
+
+Le projet sera considéré comme réussi si les trois critères mesurables suivants sont atteints :
+
+1. **Précision du modèle ≥ 75 %** : le modèle de scoring identifie correctement au moins 75 % des clients qui vont effectivement churner dans les 30 jours.
+
+2. **Dashboard opérationnel** : les équipes Customer Success peuvent consulter en moins de 2 clics la liste des comptes à risque élevé, avec le score et les signaux d'alerte associés.
+
+3. **Alertes automatisées fonctionnelles** : pour tout compte dont le score de churn dépasse 70 %, une notification est déclenchée automatiquement sans intervention manuelle.
+
+---
+
+## 6. Contraintes
+
+- **RGPD** : les données personnelles des clients sont traitées conformément au Règlement Général sur la Protection des Données. Le scoring respecte l'article 22 (décisions automatisées) : les résultats sont utilisés comme aide à la décision humaine, pas comme décision automatique définitive.
+- **Éthique** : le score de churn est un outil de rétention bienveillante, pas de discrimination commerciale.
+- **Technique** : la stack est imposée (Python, scikit-learn, Streamlit, n8n, Gemini CLI).
